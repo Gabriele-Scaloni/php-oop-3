@@ -82,7 +82,9 @@
         
         public function __toString()
         {
-            return $this->username . " " . $this->password . ": " . $this->age;
+            return "nome: " . $this->username 
+            . "<br>  password : " . $this->password 
+            . "<br> età: " . $this->age;
         }
         
         public function printMe()
@@ -144,31 +146,61 @@
                 return $this->codiceunivoco;
             }
             public function setCodiceUnivoco($codiceunivoco) { 
+                //se non é numeric ed é inferiore a 6 caratteri
+                if (!is_numeric($codiceunivoco) || strlen($codiceunivoco) !=6){
+                throw new Exception("il codice univoco deve contenere esattamente 6 caratteri numerici");
+                }
                 $this->codiceunivoco = $codiceunivoco;
             }
             public function getModello() {
                 return $this->modello;
             }
             public function setModello($modello) { 
+                if (strlen($modello) < 3 || strlen($modello) > 20) {
+                    throw new Exception("il modello deve essere costituito da una stringa tra i 3 e i 20 caratteri");
+                }
                 $this->modello = $modello;
             }  
             public function getPrezzo() {
                 return $this->prezzo;
             }
             public function setPrezzo($prezzo) { 
+                if (!is_int($prezzo) || $prezzo < 0 || $prezzo > 2000){
+                throw new Exception("il prezzo deve essere un valore intero compreso tra 0 e 2000");
+                }
                 $this->prezzo = $prezzo;
             }
             public function getMarca() {
                 return $this->marca;
             }
             public function setMarca($marca) { 
+                if (strlen($marca) < 3 || strlen($marca) > 20) {
+                    throw new Exception("la marca deve essere costituita da una stringa tra i 3 e i 20 caratteri");
+                }
                 $this->marca = $marca;
-            }  
+            }
+            
+            public function __toString(){
+                return "codice univoco: ".$this->codiceunivoco ."<br>"
+                ."modello: ". $this->modello. "<br>"
+                ."marca: ".$this->marca. "<br>"
+                ."prezzo: ". $this->prezzo ;
+            }
+
+            public function printMe()
+            {
+                echo $this;
+            }
         }
-
-
-
-
+        try { 
+            $product = new Computer(455335, "34ttttttt");
+            $product->setPrezzo(444);
+            $product->setMarca("asvv");
+            $product->printMe();
+        } catch (Exception $c) {
+            echo $c. "<br>" . $c->getMessage()  . "<br>" ;
+        }
+        
     ?>    
 
 
