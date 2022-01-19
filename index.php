@@ -65,7 +65,7 @@
         }
         //$password deve contenere almeno un carattere speciale
         public function setPassword($password) {
-           if (!is_numeric($password))//da mettere con caratteri speciali
+           if (ctype_alnum($password))
                 throw new Exception("la password deve contenere almeno un carattere speciale");
             $this->password = $password;
         }
@@ -94,7 +94,7 @@
     } 
 
     try { 
-        $user = new User("ciao", "3463");//da mettere con caratteri speciali
+        $user = new User("Gab", "ese/rcizio");//password con caratteri speciali
         $user->setAge("56");
         $user->printMe();
     } catch (Exception $e) {
